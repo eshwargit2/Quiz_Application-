@@ -38,20 +38,20 @@ export default function UserDashboard() {
 
   if (!me?.user) {
     return (
-      <div className="min-h-screen gradient-bg">
+      <div className="min-h-screen enhanced-gradient-bg">
         <main className="max-w-5xl mx-auto px-4 py-10 space-y-8">
           <header className="flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in-up">
-            <h1 className="text-4xl md:text-6xl font-bold text-center animate-float bg-gradient-to-r from-pink-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="heading-primary text-center animate-float text-bold-gradient">
               🎯 Welcome to Quiz App ✨
             </h1>
             <div className="flex items-center gap-2 animate-slide-in-right">
               <Link href="/signup">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 transform hover:scale-105 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 font-bold">
                   ✨ Sign Up
                 </Button>
               </Link>
               <Link href="/login">
-                <Button className="glass-effect text-white border-white/30 hover:bg-white/20 transform hover:scale-105 transition-all duration-300">
+                <Button className="button-enhanced text-bold-white transform hover:scale-105 transition-all duration-300">
                   🔑 Sign In
                 </Button>
               </Link>
@@ -60,15 +60,15 @@ export default function UserDashboard() {
 
           <section className="grid gap-6 sm:grid-cols-2 animate-fade-in-up">
             {quizzes.map((q: Quiz, index: number) => (
-              <div key={q._id} className={`card-hover glass-effect rounded-xl p-6 border-2 border-white/20 animate-slide-in-left`} style={{animationDelay: `${index * 0.1}s`}}>
-                <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">{q.title}</h3>
-                <p className="text-white/80 mb-4 text-lg">{q.description}</p>
+              <div key={q._id} className={`card-hover quiz-card-enhanced animate-slide-in-left`} style={{animationDelay: `${index * 0.1}s`}}>
+                <h3 className="text-enhanced mb-3 text-bold-gradient">{q.title}</h3>
+                <p className="text-description mb-4 text-lg">{q.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full backdrop-blur">
+                  <span className="text-sm bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full backdrop-blur font-semibold">
                     ⏱️ 30s per question
                   </span>
                   <Link href={`/quiz/${q._id}`}>
-                    <Button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white border-0 transform hover:scale-110 transition-all duration-300 shadow-lg">
+                    <Button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-bold-white border-0 transform hover:scale-110 transition-all duration-300 shadow-lg font-bold">
                       🚀 Start Quiz
                     </Button>
                   </Link>
@@ -77,7 +77,7 @@ export default function UserDashboard() {
             ))}
             {(!quizzes || quizzes.length === 0) && (
               <div className="col-span-full text-center py-12">
-                <p className="text-white/60 text-xl mb-4">🎭 No quizzes available!</p>
+                <p className="text-description text-xl mb-4">🎭 No quizzes available!</p>
                 <p className="text-white/40">Check back later for new quizzes.</p>
               </div>
             )}
@@ -109,10 +109,10 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="min-h-screen gradient-bg">
-      <main className="max-w-6xl mx-auto px-4 py-10">
+    <div className="min-h-screen enhanced-gradient-bg">
+      <main className="max-w-6xl mx-auto mobile-container py-10">
         {/* User Header */}
-        <div className="flex justify-between items-center mb-8 animate-fade-in-up">
+        <div className="mobile-nav mb-8 animate-fade-in-up">
           <div className="flex items-center gap-4">
             <ProfileAvatar 
               selectedAvatar={me.user.avatarId || 1} 
@@ -120,33 +120,33 @@ export default function UserDashboard() {
               animated={true}
             />
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-float">
+              <h1 className="mobile-header text-bold-gradient animate-float">
                 👋 Welcome back, {me.user.name || me.user.email}!
               </h1>
-              <p className="text-white/70 mt-2">Ready for your next challenge?</p>
+              <p className="text-description mt-2 mobile-text">Ready for your next challenge?</p>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="mobile-nav-buttons">
             <Link href="/profile">
-              <Button className="glass-effect text-white border-white/30 hover:bg-white/20">
+              <Button className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                 ⚙️ Profile
               </Button>
             </Link>
             <Link href="/leaderboard">
-              <Button className="glass-effect text-white border-white/30 hover:bg-white/20">
+              <Button className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                 🏆 Leaderboard
               </Button>
             </Link>
             {me.user.isAdmin && (
               <Link href="/admin">
-                <Button className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white border-0">
+                <Button className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-bold-white border-0 font-bold mobile-button w-full sm:w-auto">
                   ⚡ Admin Panel
                 </Button>
               </Link>
             )}
             <Button 
               onClick={handleLogout}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white border-0 transform hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 font-bold mobile-button w-full sm:w-auto"
             >
               🚪 Logout
             </Button>

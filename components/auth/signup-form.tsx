@@ -37,8 +37,12 @@ export function SignupForm() {
       // Successfully signed up
       console.log("Signup successful:", data)
       
-      // Reload the page to update auth state
-      window.location.href = "/"
+      // Check if user is admin and redirect accordingly
+      if (data.user && data.user.isAdmin) {
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/dashboard"
+      }
     } catch (err: any) {
       console.error("Signup error:", err)
       setError(err.message || "Signup failed")
@@ -48,28 +52,57 @@ export function SignupForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-4 max-w-sm mx-auto">
-      <div className="grid gap-2">
-        <label className="text-sm">Name</label>
-        <Input value={name} onChange={(e) => setName(e.target.value)} required />
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 max-w-sm mx-auto w-full">
+      <div className="grid gap-3">
+        <label className="text-sm font-bold text-bold-white mobile-text">Name</label>
+        <Input 
+          value={name} 
+          onChange={(e) => setName(e.target.value)} 
+          required 
+          className="glass-effect-enhanced text-bold-white placeholder:text-white/50 border-white/30 focus:border-white/60 font-semibold mobile-button"
+          placeholder="Enter your full name"
+        />
       </div>
-      <div className="grid gap-2">
-        <label className="text-sm">Email</label>
-        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <div className="grid gap-3">
+        <label className="text-sm font-bold text-bold-white mobile-text">Email</label>
+        <Input 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          required 
+          className="glass-effect-enhanced text-bold-white placeholder:text-white/50 border-white/30 focus:border-white/60 font-semibold mobile-button"
+          placeholder="Enter your email"
+        />
       </div>
-      <div className="grid gap-2">
-        <label className="text-sm">Password</label>
-        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <div className="grid gap-3">
+        <label className="text-sm font-bold text-bold-white mobile-text">Password</label>
+        <Input 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          required 
+          className="glass-effect-enhanced text-bold-white placeholder:text-white/50 border-white/30 focus:border-white/60 font-semibold mobile-button"
+          placeholder="Create a strong password"
+        />
       </div>
-      <div className="flex items-center gap-2">
-        <Checkbox checked={isAdmin} onCheckedChange={(v) => setIsAdmin(Boolean(v))} id="adm" />
-        <label htmlFor="adm" className="text-sm">
-          Admin
+      <div className="flex items-center gap-3 p-3 glass-effect-enhanced rounded-lg">
+        <Checkbox 
+          checked={isAdmin} 
+          onCheckedChange={(v) => setIsAdmin(Boolean(v))} 
+          id="adm" 
+          className="border-white/50 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
+        />
+        <label htmlFor="adm" className="text-sm font-bold text-bold-white mobile-text">
+          🔧 Admin Account
         </label>
       </div>
-      {error && <p className="text-destructive text-sm">{error}</p>}
-      <Button type="submit" disabled={loading} className="bg-primary text-primary-foreground">
-        {loading ? "Creating..." : "Create Account"}
+      {error && <p className="text-red-400 mobile-text font-semibold bg-red-500/10 p-3 rounded-lg border border-red-400/30">{error}</p>}
+      <Button 
+        type="submit" 
+        disabled={loading} 
+        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-bold-white font-extrabold mobile-button transform hover:scale-105 transition-all duration-300 w-full"
+      >
+        {loading ? "Creating..." : "🚀 Create Account"}
       </Button>
     </form>
   )

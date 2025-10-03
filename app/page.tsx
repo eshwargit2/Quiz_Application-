@@ -32,7 +32,20 @@ export default function HomePage() {
     // Check authentication status
     fetch('/api/auth/me')
       .then(res => res.ok ? res.json() : null)
-      .then(data => setUser(data?.user || null))
+      .then(data => {
+        const userData = data?.user || null
+        setUser(userData)
+        
+        // Redirect authenticated users - admins to admin panel, others to dashboard
+        if (userData) {
+          if (userData.isAdmin) {
+            window.location.href = '/admin'
+          } else {
+            window.location.href = '/dashboard'
+          }
+          return
+        }
+      })
       .catch(() => setUser(null))
 
     // Fetch available quizzes
@@ -53,43 +66,43 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen gradient-bg">
-      <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+    <div className="min-h-screen enhanced-gradient-bg">
+      <main className="max-w-6xl mx-auto mobile-container py-10 mobile-spacing">
         {/* Animated Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-6xl font-bold animate-float bg-gradient-to-r from-pink-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+          <h1 className="mobile-header animate-float text-bold-gradient">
             🎯 Animated Quiz App ✨
           </h1>
-          <p className="text-xl text-white/80 animate-fade-in-up">
+          <p className="mobile-text text-description animate-fade-in-up">
             Test your knowledge with our interactive animated quizzes
           </p>
         </div>
 
         {/* Auth Status & Navigation */}
-        <div className="glass-effect rounded-xl p-6 border-2 border-white/20 animate-fade-in-up">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="glass-effect-enhanced rounded-xl mobile-card animate-fade-in-up">
+          <div className="mobile-nav">
             {user ? (
-              <div className="text-white/90">
-                <span className="text-lg">Welcome back! 👋</span>
+              <div className="text-bold-white">
+                <span className="mobile-text">Welcome back! 👋</span>
               </div>
             ) : (
-              <div className="text-white/80">
-                <span>Ready to start your quiz journey?</span>
+              <div className="text-description">
+                <span className="mobile-text">Ready to start your quiz journey?</span>
               </div>
             )}
             
-            <div className="flex gap-3">
+            <div className="mobile-nav-buttons">
               {user ? (
                 <>
                   {user.isAdmin && (
                     <Link href="/admin">
-                      <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                      <Button variant="outline" className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                         ⚡ Admin Dashboard
                       </Button>
                     </Link>
                   )}
                   <Link href="/leaderboard">
-                    <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                    <Button variant="outline" className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                       🏆 Leaderboard
                     </Button>
                   </Link>
@@ -99,7 +112,7 @@ export default function HomePage() {
                         .then(() => window.location.reload())
                     }}
                     variant="outline" 
-                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    className="button-enhanced text-bold-white mobile-button w-full sm:w-auto"
                   >
                     Logout
                   </Button>
@@ -107,12 +120,12 @@ export default function HomePage() {
               ) : (
                 <>
                   <Link href="/login">
-                    <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                    <Button variant="outline" className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                       🔑 Login
                     </Button>
                   </Link>
                   <Link href="/signup">
-                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-bold-white font-extrabold mobile-button w-full sm:w-auto">
                       🚀 Sign Up
                     </Button>
                   </Link>
@@ -124,14 +137,14 @@ export default function HomePage() {
 
         {/* Available Quizzes */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-white text-center animate-slide-in-left">
+          <h2 className="mobile-subheader text-center animate-slide-in-left">
             🧠 Available Quizzes
           </h2>
           
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mobile-grid">
               {[1, 2, 3].map(i => (
-                <Card key={i} className="glass-effect border-white/20 animate-pulse">
+                <Card key={i} className="glass-effect-enhanced animate-pulse mobile-card">
                   <CardHeader>
                     <div className="h-6 bg-white/20 rounded"></div>
                     <div className="h-4 bg-white/10 rounded"></div>
@@ -143,33 +156,33 @@ export default function HomePage() {
               ))}
             </div>
           ) : quizzes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mobile-grid">
               {quizzes.map((quiz, index) => (
                 <Card 
                   key={quiz._id} 
-                  className="glass-effect border-white/20 card-hover animate-fade-in-up"
+                  className="quiz-card-enhanced card-hover animate-fade-in-up mobile-card"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-white text-lg">{quiz.title}</CardTitle>
-                      <Badge className={`${getDifficultyColor(quiz.difficulty)} text-white`}>
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
+                      <CardTitle className="text-bold-white mobile-text">{quiz.title}</CardTitle>
+                      <Badge className={`${getDifficultyColor(quiz.difficulty)} text-bold-white font-bold text-xs px-2 py-1`}>
                         {quiz.difficulty}
                       </Badge>
                     </div>
-                    <CardDescription className="text-white/70">
+                    <CardDescription className="text-description mobile-text">
                       {quiz.description}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex justify-between text-sm text-white/60">
-                      <span>📝 {quiz.questions?.length || 0} questions</span>
-                      <span>⏱️ {quiz.timeLimit} min</span>
+                    <div className="flex flex-col sm:flex-row justify-between text-sm text-description gap-2">
+                      <span className="font-semibold">📝 {quiz.questions?.length || 0} questions</span>
+                      <span className="font-semibold">⏱️ {quiz.timeLimit} min</span>
                     </div>
                     
                     {user ? (
                       <Link href={`/quiz/${quiz._id}`}>
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-bold-white font-extrabold mobile-button">
                           Start Quiz 🚀
                         </Button>
                       </Link>
@@ -177,7 +190,7 @@ export default function HomePage() {
                       <Link href="/login">
                         <Button 
                           variant="outline" 
-                          className="w-full bg-white/10 border-white/20 text-white hover:bg-white/20"
+                          className="w-full button-enhanced text-bold-white mobile-button"
                         >
                           Login to Start 🔐
                         </Button>
@@ -188,39 +201,39 @@ export default function HomePage() {
               ))}
             </div>
           ) : (
-            <Card className="glass-effect border-white/20 animate-fade-in-up">
+            <Card className="glass-effect-enhanced animate-fade-in-up mobile-card">
               <CardContent className="text-center py-12">
                 <div className="text-6xl mb-4">📚</div>
-                <h3 className="text-xl font-semibold text-white mb-2">No Quizzes Available</h3>
-                <p className="text-white/70">Check back later for new quizzes!</p>
+                <h3 className="mobile-text font-semibold text-bold-white mb-2">No Quizzes Available</h3>
+                <p className="text-description mobile-text">Check back later for new quizzes!</p>
               </CardContent>
             </Card>
           )}
         </div>
 
         {/* Features Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <Card className="glass-effect border-white/20 animate-slide-in-left">
+        <div className="mobile-grid mt-12">
+          <Card className="glass-effect-enhanced animate-slide-in-left mobile-card">
             <CardContent className="text-center py-8">
               <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-lg font-semibold text-white mb-2">Fast & Responsive</h3>
-              <p className="text-white/70 text-sm">Lightning-fast quiz experience with smooth animations</p>
+              <h3 className="mobile-text font-bold text-bold-white mb-2">Fast & Responsive</h3>
+              <p className="text-description text-sm">Lightning-fast quiz experience with smooth animations</p>
             </CardContent>
           </Card>
           
-          <Card className="glass-effect border-white/20 animate-fade-in-up">
+          <Card className="glass-effect-enhanced animate-fade-in-up mobile-card">
             <CardContent className="text-center py-8">
               <div className="text-4xl mb-4">🏆</div>
-              <h3 className="text-lg font-semibold text-white mb-2">Leaderboards</h3>
-              <p className="text-white/70 text-sm">Compete with others and track your progress</p>
+              <h3 className="mobile-text font-bold text-bold-white mb-2">Leaderboards</h3>
+              <p className="text-description text-sm">Compete with others and track your progress</p>
             </CardContent>
           </Card>
           
-          <Card className="glass-effect border-white/20 animate-slide-in-right">
+          <Card className="glass-effect-enhanced animate-slide-in-right mobile-card">
             <CardContent className="text-center py-8">
               <div className="text-4xl mb-4">📊</div>
-              <h3 className="text-lg font-semibold text-white mb-2">Detailed Analytics</h3>
-              <p className="text-white/70 text-sm">Get insights into your quiz performance</p>
+              <h3 className="mobile-text font-bold text-bold-white mb-2">Detailed Analytics</h3>
+              <p className="text-description text-sm">Get insights into your quiz performance</p>
             </CardContent>
           </Card>
         </div>

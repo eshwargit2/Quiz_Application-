@@ -1,8 +1,19 @@
-# 🎯 Animated Quiz Application
+# 🎯 **Animated Quiz Application**
 
-A modern, interactive quiz application built with Next.js, featuring beautiful animations, user authentication, and comprehensive admin management.
+## **🌟 A Modern, Interactive Quiz Platform**
+
+A **cutting-edge quiz application** built with **Next.js**, featuring **stunning animations**, **secure user authentication**, and **comprehensive admin management**.
+
+<div align="center">
 
 ![Quiz App Banner](https://via.placeholder.com/800x200/6366f1/ffffff?text=Animated+Quiz+Application)
+
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+</div>
 
 ## ✨ Features
 

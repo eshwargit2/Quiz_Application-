@@ -26,9 +26,6 @@ export default async function LeaderboardPage() {
             <a href="/profile" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 px-4 py-2 rounded-lg transition-all duration-300 text-sm">
               ⚙️ Profile
             </a>
-            <a href="/login" className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white border-0 px-4 py-2 rounded-lg transition-all duration-300 text-sm">
-              🔑 Login
-            </a>
           </div>
         </div>
         

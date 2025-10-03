@@ -120,11 +120,11 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
 
   if (!questions.length && data) {
     return (
-      <div className="min-h-screen gradient-bg flex items-center justify-center">
-        <div className="glass-effect rounded-xl p-8 border-2 border-white/20 animate-fade-in-up text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">📝 No Questions Available</h2>
-          <p className="text-white/80">This quiz doesn't have any questions yet.</p>
-          <Button className="mt-4 bg-gradient-to-r from-blue-500 to-purple-500" onClick={() => window.history.back()}>
+      <div className="min-h-screen enhanced-gradient-bg flex items-center justify-center">
+        <div className="glass-effect-enhanced rounded-xl p-8 animate-fade-in-up text-center">
+          <h2 className="heading-secondary mb-4">📝 No Questions Available</h2>
+          <p className="text-description">This quiz doesn't have any questions yet.</p>
+          <Button className="mt-4 bg-gradient-to-r from-blue-500 to-purple-500 text-bold-white font-bold" onClick={() => window.history.back()}>
             🔙 Go Back
           </Button>
         </div>
@@ -133,34 +133,34 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
   }
 
   return (
-    <div className="min-h-screen gradient-bg">
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+    <div className="min-h-screen enhanced-gradient-bg">
+      <div className="max-w-4xl mx-auto mobile-container py-8 mobile-spacing">
         {/* Header with Progress and Timer */}
         <motion.div 
-          className="glass-effect rounded-xl p-6 border-2 border-white/20"
+          className="glass-effect-enhanced rounded-xl mobile-card"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="mobile-nav mb-4">
             <div className="flex items-center gap-3">
-              <Target className="w-6 h-6 text-blue-400" />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              <Target className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+              <h1 className="mobile-subheader text-bold-gradient">
                 Quiz Challenge
               </h1>
             </div>
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full glass-effect ${timeColor}`}>
-              <Clock className="w-5 h-5" />
-              <span className="font-bold text-lg">
+            <div className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-full glass-effect-enhanced ${timeColor} font-bold`}>
+              <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="font-extrabold text-base sm:text-lg">
                 {remaining || 0}s
               </span>
-              <span className="text-sm opacity-75">per question</span>
+              <span className="text-xs sm:text-sm font-semibold opacity-75">per question</span>
             </div>
           </div>
 
           {/* Progress Bar */}
           <div className="space-y-2">
-            <div className="flex justify-between text-white/80 text-sm">
+            <div className="flex flex-col sm:flex-row justify-between text-description text-sm font-semibold gap-1">
               <span>Question {index + 1} of {questions.length}</span>
               <span>{answeredCount}/{questions.length} answered • 30s per question</span>
             </div>
@@ -229,13 +229,13 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <Card className="glass-effect border-2 border-white/20 bg-transparent">
+              <Card className="quiz-card-enhanced bg-transparent mobile-card">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-2xl text-white leading-relaxed">
+                  <CardTitle className="text-enhanced text-bold-white leading-relaxed mobile-text">
                     {q.text}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3 sm:space-y-4">
                   {q.options.map((opt, i) => {
                     const isSelected = currentAnswer?.selectedIndex === i
                     return (
@@ -243,21 +243,21 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
                         key={i}
                         type="button"
                         onClick={() => handleSelect(i)}
-                        className={`w-full p-4 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] ${
+                        className={`mobile-quiz-option rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] ${
                           isSelected 
-                            ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white shadow-lg' 
-                            : 'glass-effect text-white border-2 border-white/20 hover:border-white/40 hover:bg-white/10'
+                            ? 'bg-gradient-to-r from-green-500 to-teal-500 text-bold-white shadow-lg font-bold' 
+                            : 'glass-effect-enhanced text-bold-white hover:bg-white/15'
                         }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <div className="flex items-center gap-3">
-                          <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                            isSelected ? 'bg-white/20' : 'bg-white/10'
+                          <span className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-extrabold text-sm sm:text-base ${
+                            isSelected ? 'bg-white/30' : 'bg-white/20'
                           }`}>
                             {String.fromCharCode(65 + i)}
                           </span>
-                          <span className="text-lg">{opt}</span>
+                          <span className="mobile-text font-semibold">{opt}</span>
                         </div>
                       </motion.button>
                     )
@@ -276,7 +276,7 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
               transition={{ duration: 0.5 }}
               className="text-center space-y-6"
             >
-              <div className="glass-effect rounded-xl p-8 border-2 border-white/20">
+              <div className="glass-effect-enhanced rounded-xl p-8">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -285,22 +285,22 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
                   <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
                 </motion.div>
                 
-                <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                <h2 className="heading-primary mb-4 text-bold-gradient">
                   🎉 Quiz Complete! 🎉
                 </h2>
                 
                 <div className="space-y-4">
-                  <div className="text-6xl font-bold text-white">
+                  <div className="text-6xl font-extrabold text-bold-white">
                     {submitted.score}/{submitted.total}
                   </div>
                   
-                  <div className="text-2xl text-white/80">
-                    Score: <span className={`font-bold ${scorePercentage >= 80 ? 'text-green-400' : scorePercentage >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
+                  <div className="text-2xl text-description">
+                    Score: <span className={`font-extrabold ${scorePercentage >= 80 ? 'text-green-400' : scorePercentage >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
                       {scorePercentage}%
                     </span>
                   </div>
 
-                  <div className={`text-lg px-6 py-3 rounded-full ${
+                  <div className={`text-lg px-6 py-3 rounded-full font-bold ${
                     scorePercentage >= 80 ? 'bg-green-500/20 text-green-300' :
                     scorePercentage >= 60 ? 'bg-yellow-500/20 text-yellow-300' :
                     'bg-red-500/20 text-red-300'
@@ -314,19 +314,19 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
                 <div className="flex gap-4 justify-center mt-8">
                   <Button 
                     onClick={() => window.location.reload()}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 transform hover:scale-105 transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 font-extrabold"
                   >
                     🔄 Try Again
                   </Button>
                   <Button 
                     onClick={() => window.location.href = '/dashboard'}
-                    className="glass-effect text-white border-white/30 hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
+                    className="button-enhanced text-bold-white transform hover:scale-105 transition-all duration-300"
                   >
                     📊 Dashboard
                   </Button>
                   <Button 
                     onClick={() => window.location.href = '/leaderboard'}
-                    className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white border-0 transform hover:scale-105 transition-all duration-300"
+                    className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 font-extrabold"
                   >
                     🏆 Leaderboard
                   </Button>
@@ -339,28 +339,28 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
         {/* Navigation Controls */}
         {!submitted && questions.length > 0 && (
           <motion.div 
-            className="glass-effect rounded-xl p-4 border-2 border-white/20"
+            className="glass-effect-enhanced rounded-xl mobile-card"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="flex items-center justify-between">
+            <div className="mobile-nav">
               <Button
                 type="button"
                 onClick={prevQuestion}
                 disabled={index === 0}
-                className="glass-effect text-white border-white/30 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="button-enhanced text-bold-white disabled:opacity-50 disabled:cursor-not-allowed mobile-button w-full sm:w-auto"
               >
                 <ChevronLeft className="w-4 h-4 mr-2" />
                 Previous
               </Button>
 
-              <div className="flex gap-3">
+              <div className="mobile-nav-buttons">
                 {index < questions.length - 1 ? (
                   <Button 
                     type="button" 
                     onClick={nextQuestion}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-bold-white border-0 font-bold mobile-button w-full sm:w-auto"
                   >
                     Next
                     <ChevronRight className="w-4 h-4 ml-2" />
@@ -370,7 +370,7 @@ export function QuizPlayer({ quizId, timeLimitSec }: { quizId: string; timeLimit
                     type="button" 
                     onClick={handleSubmit} 
                     disabled={isSubmitting}
-                    className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white border-0 transform hover:scale-105 transition-all duration-300"
+                    className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 font-extrabold mobile-button w-full sm:w-auto"
                   >
                     {isSubmitting ? (
                       <>

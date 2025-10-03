@@ -76,10 +76,10 @@ export default function AdminDashboard() {
     )
   }
   return (
-    <div className="min-h-screen gradient-bg">
-      <main className="max-w-6xl mx-auto px-4 py-10">
+    <div className="min-h-screen enhanced-gradient-bg">
+      <main className="max-w-6xl mx-auto mobile-container py-10">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8 animate-fade-in-up">
+        <div className="mobile-nav mb-8 animate-fade-in-up">
           <div className="flex items-center gap-4">
             <ProfileAvatar 
               selectedAvatar={me.user.avatarId || 1} 
@@ -87,31 +87,31 @@ export default function AdminDashboard() {
               animated={true}
             />
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent animate-float">
+              <h1 className="mobile-header text-bold-gradient animate-float">
                 ⚡ Admin Dashboard ⚡
               </h1>
-              <p className="text-white/70 mt-1">Welcome, {me.user.name || me.user.email}</p>
+              <p className="text-description mt-1 mobile-text">Welcome, {me.user.name || me.user.email}</p>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="mobile-nav-buttons">
             <Link href="/">
-              <Button className="glass-effect text-white border-white/30 hover:bg-white/20">
+              <Button className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                 🏠 Home
               </Button>
             </Link>
             <Link href="/profile">
-              <Button className="glass-effect text-white border-white/30 hover:bg-white/20">
+              <Button className="button-enhanced text-bold-white mobile-button w-full sm:w-auto">
                 ⚙️ Profile
               </Button>
             </Link>
             <Link href="/admin/import">
-              <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0">
+              <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-bold-white border-0 mobile-button w-full sm:w-auto font-bold">
                 📥 Import Questions
               </Button>
             </Link>
             <Button 
               onClick={handleLogout}
-              className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white border-0 transform hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-bold-white border-0 transform hover:scale-105 transition-all duration-300 mobile-button w-full sm:w-auto font-bold"
             >
               🚪 Logout
             </Button>
@@ -119,41 +119,41 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="glass-effect border-2 border-white/20 animate-slide-in-left">
+        <div className="mobile-grid mb-8">
+          <Card className="glass-effect-enhanced animate-slide-in-left mobile-card">
             <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
+              <CardTitle className="text-bold-white flex items-center gap-2 mobile-text">
                 📊 Total Quizzes
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
+              <p className="text-3xl font-bold text-bold-gradient">
                 {quizzes?.length || 0}
               </p>
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-2 border-white/20 animate-slide-in-left" style={{animationDelay: '0.1s'}}>
+          <Card className="glass-effect-enhanced animate-slide-in-left mobile-card" style={{animationDelay: '0.1s'}}>
             <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
+              <CardTitle className="text-bold-white flex items-center gap-2 mobile-text">
                 👥 Total Users
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+              <p className="text-3xl font-bold text-bold-gradient">
                 {users?.length || 0}
               </p>
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-2 border-white/20 animate-slide-in-left" style={{animationDelay: '0.2s'}}>
+          <Card className="glass-effect-enhanced animate-slide-in-left mobile-card" style={{animationDelay: '0.2s'}}>
             <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
+              <CardTitle className="text-bold-white flex items-center gap-2 mobile-text">
                 🎯 Quiz Attempts
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+              <p className="text-3xl font-bold text-bold-gradient">
                 N/A
               </p>
             </CardContent>
@@ -161,22 +161,22 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quiz Management */}
-        <Card className="glass-effect border-2 border-white/20 animate-fade-in-up">
+        <Card className="glass-effect-enhanced animate-fade-in-up mobile-card">
           <CardHeader>
-            <CardTitle className="text-white text-xl">🎮 Quiz Management</CardTitle>
+            <CardTitle className="text-bold-white mobile-subheader">🎮 Quiz Management</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="mobile-spacing">
               {quizzes.map((quiz: Quiz, index: number) => (
-                <div key={quiz._id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div>
-                    <h3 className="text-white font-semibold text-lg">{quiz.title}</h3>
-                    <p className="text-white/70">{quiz.description}</p>
-                    <p className="text-white/50 text-sm">⏱️ 30s per question • 📝 {quiz.questionIds?.length || 0} questions</p>
+                <div key={quiz._id} className="mobile-flex items-start justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div className="flex-1">
+                    <h3 className="text-bold-white font-semibold mobile-text">{quiz.title}</h3>
+                    <p className="text-description mobile-text">{quiz.description}</p>
+                    <p className="text-description text-sm">⏱️ 30s per question • 📝 {quiz.questionIds?.length || 0} questions</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="mobile-nav-buttons">
                     <Link href={`/quiz/${quiz._id}`}>
-                      <Button size="sm" className="glass-effect text-white border-white/30 hover:bg-white/20">
+                      <Button size="sm" className="button-enhanced text-bold-white mobile-button">
                         👁️ Preview
                       </Button>
                     </Link>
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
                       size="sm" 
                       onClick={() => handleDeleteQuiz(quiz._id, quiz.title)}
                       disabled={deletingQuizId === quiz._id}
-                      className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-bold-white border-0 disabled:opacity-50 disabled:cursor-not-allowed mobile-button font-bold"
                     >
                       {deletingQuizId === quiz._id ? "🔄 Deleting..." : "🗑️ Delete"}
                     </Button>
@@ -193,9 +193,9 @@ export default function AdminDashboard() {
               ))}
               {(!quizzes || quizzes.length === 0) && (
                 <div className="text-center py-8">
-                  <p className="text-white/60 text-xl mb-4">📝 No quizzes created yet</p>
+                  <p className="text-description mobile-text mb-4">📝 No quizzes created yet</p>
                   <Link href="/admin/import">
-                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0">
+                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-bold-white border-0 mobile-button font-bold">
                       ➕ Create Your First Quiz
                     </Button>
                   </Link>
@@ -206,26 +206,26 @@ export default function AdminDashboard() {
         </Card>
 
         {/* User Management */}
-        <Card className="glass-effect border-2 border-white/20 animate-fade-in-up mt-8">
+        <Card className="glass-effect-enhanced animate-fade-in-up mt-8 mobile-card">
           <CardHeader>
-            <CardTitle className="text-white text-xl">👥 User Management</CardTitle>
+            <CardTitle className="text-bold-white mobile-subheader">👥 User Management</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="mobile-spacing">
               {users.map((user: any, index: number) => (
                 <div key={user._id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300" style={{animationDelay: `${index * 0.1}s`}}>
                   <div className="flex items-center gap-4">
                     <div>
-                      <h3 className="text-white font-semibold">{user.name || "No Name"}</h3>
-                      <p className="text-white/70">{user.email}</p>
+                      <h3 className="text-bold-white font-semibold mobile-text">{user.name || "No Name"}</h3>
+                      <p className="text-description mobile-text">{user.email}</p>
                     </div>
                   </div>
                 </div>
               ))}
               {(!users || users.length === 0) && (
                 <div className="text-center py-8">
-                  <p className="text-white/60 text-xl mb-4">👥 No users found</p>
-                  <p className="text-white/50">Users will appear here once they sign up.</p>
+                  <p className="text-description mobile-text mb-4">👥 No users found</p>
+                  <p className="text-description mobile-text">Users will appear here once they sign up.</p>
                 </div>
               )}
             </div>
@@ -233,34 +233,34 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Quick Actions */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="glass-effect border-2 border-white/20 animate-slide-in-left">
+        <div className="mt-8 mobile-grid">
+          <Card className="glass-effect-enhanced animate-slide-in-left mobile-card">
             <CardHeader>
-              <CardTitle className="text-white">🚀 Quick Actions</CardTitle>
+              <CardTitle className="text-bold-white mobile-text">🚀 Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="mobile-spacing">
               <Link href="/admin/import">
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0">
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-bold-white border-0 mobile-button font-bold">
                   📥 Import Questions from Excel
                 </Button>
               </Link>
               <Link href="/leaderboard">
-                <Button className="w-full glass-effect text-white border-white/30 hover:bg-white/20">
+                <Button className="w-full button-enhanced text-bold-white mobile-button">
                   🏆 View Leaderboard
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-2 border-white/20 animate-slide-in-right">
+          <Card className="glass-effect-enhanced animate-slide-in-right mobile-card">
             <CardHeader>
-              <CardTitle className="text-white">📊 System Info</CardTitle>
+              <CardTitle className="text-bold-white mobile-text">📊 System Info</CardTitle>
             </CardHeader>
-            <CardContent className="text-white/80 space-y-2">
-              <p>🔧 Admin: {me?.user?.email}</p>
-              <p>🌐 Environment: Development</p>
-              <p>📅 Last Updated: {new Date().toLocaleDateString()}</p>
-              <p>⚡ Status: Online</p>
+            <CardContent className="text-description mobile-spacing">
+              <p className="mobile-text">🔧 Admin: {me?.user?.email}</p>
+              <p className="mobile-text">🌐 Environment: Development</p>
+              <p className="mobile-text">📅 Last Updated: {new Date().toLocaleDateString()}</p>
+              <p className="mobile-text">⚡ Status: Online</p>
             </CardContent>
           </Card>
         </div>
